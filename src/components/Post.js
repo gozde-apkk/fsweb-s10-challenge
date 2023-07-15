@@ -1,11 +1,18 @@
 import React from "react";
 import { formatDistanceToNow } from "date-fns";
 import { tr } from "date-fns/locale";
+import { useDispatch } from "react-redux";
+import { notSilAPI } from "../actions";
+import { nanoid } from "nanoid";
 
 export default function Post({ item }) {
 
+  const dispatch = useDispatch()
+
   function handleSil() {
+    dispatch(notSilAPI(item.id))
     // burada ilgili eylemi dispatch edin
+    // dispatch(notSilAPI(item.id))
     // sonra toast mesajı gösterin
   }
 
@@ -19,12 +26,13 @@ export default function Post({ item }) {
       </h1>
 
       {item.body.split("|").map((li) => (
-        <p className="mt-2" key={li}>
+        <p className="mt-2" key={nanoid()}>
           - {li}
         </p>
       ))}
 
-      <button className="text-xs text-amber-600 mt-4 underline" onClick={handleSil}>
+      <button className="text-xs text-amber-600 mt-4 underline"
+        onClick={handleSil}>
         Bu notu sil
       </button>
     </div>
